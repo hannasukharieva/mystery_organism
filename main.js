@@ -29,13 +29,29 @@ const pAequorFactor = function (uniqueNumber, strand) {
       this.dna[index] = newBase;
       console.log(this.dna)
       return this.dna;
+    },
+    compareDNA(dnaToCompare) {
+      let hits = 0;
+      for (let i = 0; i < this.dna.length; i++) {
+        const toCompare = dnaToCompare.dna[i];
+        if (this.dna[i] === toCompare) {
+          hits += 1;
+        }
+      }
+      
+      const hitsPercentage = Math.floor(hits / this.dna.length * 100)
+      return (`specimen #1 and specimen #2 have ${hitsPercentage}% DNA in common`);
     }
   }
 }
 
 const specimen = new pAequorFactor(uniqueNumber, mockUpStrand())
-specimen.mutate()
+const specimenTwo = new pAequorFactor(uniqueNumber, mockUpStrand())
+console.log(specimen.dna)
+console.log(specimenTwo.dna)
+// specimen.mutate()
 
+console.log(specimen.compareDNA(specimenTwo))
 
 
 
