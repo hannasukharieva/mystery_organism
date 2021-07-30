@@ -28,6 +28,7 @@ const pAequorFactor = function (uniqueNumber, strand) {
       }
       this.dna[index] = newBase;
       console.log(this.dna)
+
       return this.dna;
     },
     compareDNA(dnaToCompare) {
@@ -38,9 +39,22 @@ const pAequorFactor = function (uniqueNumber, strand) {
           hits += 1;
         }
       }
-      
       const hitsPercentage = Math.floor(hits / this.dna.length * 100)
+
       return (`specimen #1 and specimen #2 have ${hitsPercentage}% DNA in common`);
+    },
+    willLikelySurvive() {
+      //Implicit return (does not require curly braces)
+      const countOccurrences = this.dna.reduce((accum, value) => (
+        value === 'C' || value === 'G' ? accum + 1 : accum
+      ), 0);
+      const survivalPercentage = Math.floor(countOccurrences / this.dna.length * 100);
+      
+      if (survivalPercentage >= 60) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }
@@ -52,6 +66,4 @@ console.log(specimenTwo.dna)
 // specimen.mutate()
 
 console.log(specimen.compareDNA(specimenTwo))
-
-
-
+console.log(specimenTwo.willLikelySurvive())
