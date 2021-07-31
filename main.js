@@ -13,7 +13,7 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
-const uniqueNumber = Math.floor(Math.random() * 100)
+const uniqueNumber = () => Math.floor(Math.random() * 100)
 
 const pAequorFactor = function (uniqueNumber, strand) {
   return {
@@ -49,7 +49,7 @@ const pAequorFactor = function (uniqueNumber, strand) {
         value === 'C' || value === 'G' ? accum + 1 : accum
       ), 0);
       const survivalPercentage = Math.floor(countOccurrences / this.dna.length * 100);
-      
+
       if (survivalPercentage >= 60) {
         return true;
       } else {
@@ -59,11 +59,21 @@ const pAequorFactor = function (uniqueNumber, strand) {
   }
 }
 
-const specimen = new pAequorFactor(uniqueNumber, mockUpStrand())
-const specimenTwo = new pAequorFactor(uniqueNumber, mockUpStrand())
+const survivingSpecimen = [];
+
+while (survivingSpecimen.length < 30) {
+  let newOrg = pAequorFactor(uniqueNumber(), mockUpStrand());
+  if (newOrg.willLikelySurvive()) {
+    survivingSpecimen.push(newOrg);
+  }
+}
+
+const specimen = new pAequorFactor(uniqueNumber(), mockUpStrand())
+const specimenTwo = new pAequorFactor(uniqueNumber(), mockUpStrand())
 console.log(specimen.dna)
 console.log(specimenTwo.dna)
 // specimen.mutate()
 
 console.log(specimen.compareDNA(specimenTwo))
 console.log(specimenTwo.willLikelySurvive())
+console.log(survivingSpecimen)
